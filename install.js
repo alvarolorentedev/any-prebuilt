@@ -104,11 +104,10 @@ function parseEnviroment() {
         var version = process.env.PREBUILT_VERSION || inf.version || 'latest'
         var runtimeVersion = process.env.PREBUILT_RUNTIME_VERSION || inf.runtimeVersion || 'latest'
         var targetDir = process.env.PREBUILT_TARGET_DIR || inf.targetDir || './bin'
-        //TODO: check this are set
+
         var user = process.env.PREBUILT_USER || inf.user;
         var repo = process.env.PREBUILT_REPO || inf.repo;
         var token = process.env.PREBUILT_TOKEN || inf.token;
-        //TODO: review this are set
 
         fs.mkdirsSync(targetDir)
 
