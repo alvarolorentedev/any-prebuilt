@@ -52,7 +52,6 @@ function getPrebuilt(data) {
                     var assetParsed = path.parse(asset.name).name.replace('.tar', '').split('_');
                     
                     var assetRuntime = {
-                        version: (data.runtime.version === 'latest') ? 'latest' : assetParsed[1],
                         arch: assetParsed[3],
                         platform: assetParsed[2]
                     };
@@ -102,7 +101,6 @@ function parseEnviroment() {
         var platform = process.env.PREBUILT_PLATFORM || inf.platform || getPlatformInfo().split(':')[0]
         var arch = process.env.PREBUILT_ARCH || inf.arch || getPlatformInfo().split(':')[1]
         var version = process.env.PREBUILT_VERSION || inf.version || 'latest'
-        var runtimeVersion = process.env.PREBUILT_RUNTIME_VERSION || inf.runtimeVersion || 'latest'
         var targetDir = process.env.PREBUILT_TARGET_DIR || inf.targetDir || './bin'
 
         var user = process.env.PREBUILT_USER || inf.user;
@@ -112,7 +110,7 @@ function parseEnviroment() {
         fs.mkdirsSync(targetDir)
 
         console.log('Fetching prebuilt' + ':', '\n version:', version, 
-            '\n'+ ' version:', runtimeVersion, '\nPlatform:', platform, '\nArch:', arch,
+            '\n'+ '\nPlatform:', platform, '\nArch:', arch,
             '\nTarget dir:', targetDir);
 
         if ( !(supported.platforms.indexOf(platform) > -1) || !(supported.arch.indexOf(arch) > -1))
@@ -122,7 +120,6 @@ function parseEnviroment() {
 
         resolve({
             runtime: {
-                version: runtimeVersion,
                 arch: arch,
                 platform: platform
             },
