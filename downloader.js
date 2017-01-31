@@ -20,16 +20,28 @@ module.exports = {
         bar && bar.terminate();
         bar = null;
     },
-    downloadAndUnpack: function(destination, url) {
+    downloadAndUnpack: function(destination, name, url, token) {
         var cachepath = path.resolve(destination, './temp');
         fs.mkdirsSync(cachepath);
-        var extention = path.extname(url),
+        var requestSettings = { url: url
+                , 'method':'GET'
+                , headers: {
+                    'User-Agent': 'request',
+                    'Accept': 'application/octet-stream'
+                }
+            }
+        if(token)
+            requestSettings.auth = {
+                    'bearer': token,
+                    'sendImmediately': true
+                }
+        var extention = path.extname(name),
             done = Promise.defer(),
             self = this,
-             
-rq = request({ url: url, 'method':'POST', headers: {'Authorization':'token 2c48d78ea6efcea34563ccadf3ec37d164258a2', 'Accept':'application/octet-stream'}}),
+            rq = request(requestSettings),
             len,
             stream;
+        
 
         function format(statusCode) {
             return statusCode + ': ' + require('http').STATUS_CODES[statusCode];

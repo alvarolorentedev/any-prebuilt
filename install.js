@@ -77,7 +77,7 @@ function getPrebuilt(data) {
                 console.log('Acquiring: ', candidate.browser_download_url);
 
                 console.log('Acquiring: ', candidate.url);
-                downloader.downloadAndUnpack(data.dir, candidate.url)
+                downloader.downloadAndUnpack(data.dir, candidate.name, candidate.url, data.token)
                     .then(function() {
                         resolve(data)
                     }).catch(console.log);
