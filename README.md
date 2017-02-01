@@ -38,6 +38,10 @@ There are 2 ways you can configure these elements this:
   }
   ```
 
+### State
+
+Under development, not on production yet.
+
 ### Special thanks
 
 to all the contributors to [wcjs-prebuilt](https://github.com/Ivshti/wcjs-prebuilt) that this package is based on.
