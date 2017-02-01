@@ -16,17 +16,18 @@ Before installing the package, you may need to configure a few things. Here's th
   - Origin repo (format: string. Is `required`)
   - Github token (format: string. `required` if private repo)
   - Target architecture (supported: `ia32` / `x64`. Default value: machine's architecture)
-  - Target platform (supported: `win` / `osx`. Default value: machine's platform)
+  - Target platform (supported: `win` / `osx` / `linux`. Default value: machine's platform)
   - Target version (format: `vX.Y.Z`. Default value: latest)
   - Target directory (where to install the binaries. Default value: `./bin`)
-
+  - Target binary (the precompiled binary to be required in node. No default value)
+ 
 There are 2 ways you can configure these elements this:
-  - With the `PREBUILT_ARCH`, `PREBUILT_PLATFORM`, `PREBUILT_VERSION`, `PREBUILT_RUNTIME`, `PREBUILT_TOKEN`, `PREBUILT_REPO`, `PREBUILT_USER` and `PREBUILT_TARGET_DIR` environment variables. Here's an example:
+  - With the `PREBUILT_ARCH`, `PREBUILT_PLATFORM`, `PREBUILT_VERSION`, `PREBUILT_BINARY`, `PREBUILT_TOKEN`, `PREBUILT_REPO`, `PREBUILT_USER` and `PREBUILT_TARGET_DIR` environment variables. Here's an example:
 
   ```
   PREBUILT_USER=<user or organization> PREBUILT_REPO<repo> npm install prebuilt-prebuilt
   ```
-  - By adding a `prebuilt` hash to your root `package.json` and defining the following keys: `arch`, `platform`, `version`, `targetDir`, `user`, `repo` or `token`. Here's an example:
+  - By adding a `prebuilt` hash to your root `package.json` and defining the following keys: `arch`, `platform`, `version`, `targetDir`, `targetBin`, `user`, `repo` or `token`. Here's an example:
   
   ```
   "prebuilt": {
