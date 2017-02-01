@@ -13,7 +13,7 @@ function getPlatformInfo() {
 module.exports.install = require('./lib/install')
 
 module.exports.initialize = function initialize(manifest){
-    var inf = (manifest && manifest['prebuilt']) ? manifest['prebuilt'] : {}
+    var inf = manifest ? manifest : {}
     var targetDir = process.env.PREBUILT_TARGET_DIR || inf.targetDir || './bin'
     var targetBin = process.env.PREBUILT_BINARY || inf.targetBin
     var paths = inf.paths
