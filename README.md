@@ -37,6 +37,9 @@ There are 2 ways you can configure these elements this:
     "token": "<token if private>" 
   }
   ```
+### State
+
+Under development, not on production yet.
 
 ### Special thanks
 
