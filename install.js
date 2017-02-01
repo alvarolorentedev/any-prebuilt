@@ -1,4 +1,5 @@
 var needle = require('needle'),
+    parent = require('parent-package-json'),
     _ = require('lodash'),
     path = require('path'),
     downloader = require('./downloader'),
@@ -133,7 +134,6 @@ function parseEnviroment() {
 
 parseEnviroment()
     .then(getPrebuilt)
-    // .then(cleanup)
     .then(function() {
         console.log('Prebuilt downloaded');
     })
