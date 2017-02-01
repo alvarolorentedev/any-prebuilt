@@ -1,11 +1,9 @@
 var needle = require('needle'),
-    findProjectRoot = require('find-project-root'),
+    parent = require('parent-package-json'),
     _ = require('lodash'),
     path = require('path'),
     downloader = require('./downloader'),
     fs = require('fs-extra')
-
-var rootdir = findProjectRoot(process.cwd(), { maxDepth: 12 })
 
 function getPlatformInfo() {
     if (/linux/.test(process.platform)) {
@@ -93,7 +91,7 @@ function parseEnviroment() {
 
     return new Promise(function(resolve, reject) {
         try {
-            var manifest = require(path.join(rootdir, 'package.json'))
+            var manifest = require(parent().path)
         } catch (e) {}
 
         var inf = (manifest && manifest['prebuilt']) ? manifest['prebuilt'] : {}
