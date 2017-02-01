@@ -10,7 +10,7 @@ function getPlatformInfo() {
     }
 }
 
-module.exports.install = require('./lib/install')(package)
+module.exports.install = require('./lib/install')
 
 module.exports.initialize = function initialize(package){
     var manifest = require(package)
