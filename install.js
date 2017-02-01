@@ -94,7 +94,10 @@ function parseEnviroment() {
     return new Promise(function(resolve, reject) {
         try {
             var manifest = readPkgUp.sync({cwd: path.dirname(parentModule())}).pkg
-        } catch (e) {}
+            console.log(JSON.stringify(manifest))
+        } catch (e) {
+            console.log('error reading parent package:' + e)
+        }
 
         var inf = (manifest && manifest['prebuilt']) ? manifest['prebuilt'] : {}
 
