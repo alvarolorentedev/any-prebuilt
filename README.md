@@ -40,7 +40,7 @@ There are 2 ways you can configure these elements this:
 
 ### Special thanks
 
-to all the contributors to [prebuilt-prebuilt](https://github.com/Ivshti/prebuilt-prebuilt) that this package is based on.
+to all the contributors to [wcjs-prebuilt](https://github.com/Ivshti/wcjs-prebuilt) that this package is based on.
 
 ### Logo
 Hours graphic by <a href="http://www.flaticon.com/authors/freepik">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
