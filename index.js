@@ -1,5 +1,4 @@
-var parent = require('parent-package-json'),
-    path = require('path')
+var path = require('path')
 
 function getPlatformInfo() {
     if (/linux/.test(process.platform)) {
@@ -11,18 +10,18 @@ function getPlatformInfo() {
     }
 }
 
-try {
-    var manifest = require(parent().path)
-} catch (e) {}
+module.exports.install = require('./lib/install')
 
-var inf = (manifest && manifest['prebuilt']) ? manifest['prebuilt'] : {}
-var targetDir = process.env.PREBUILT_TARGET_DIR || inf.targetDir || './bin'
-var targetBin = process.env.PREBUILT_BINARY || inf.targetBin
-var paths = inf.paths
-var platform = process.env.PREBUILT_PLATFORM || inf.platform || getPlatformInfo()
+module.exports.initialize = function initialize(manifest){
+    var inf = manifest ? manifest : {}
+    var targetDir = process.env.PREBUILT_TARGET_DIR || inf.targetDir || './bin'
+    var targetBin = process.env.PREBUILT_BINARY || inf.targetBin
+    var paths = inf.paths
+    var platform = process.env.PREBUILT_PLATFORM || inf.platform || getPlatformInfo()
 
-if (targetBin)
-    module.exports.binary = require(targetDir + '/' + targetBin);
+    if (targetBin)
+        module.exports.binary = require(targetDir + '/' + targetBin);
 
-if(paths)
-    module.exports.path = path.join(__dirname, paths[platform])
+    if(paths)
+        module.exports.path = path.join(__dirname, paths[platform])
+}
