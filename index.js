@@ -3,11 +3,11 @@ var findProjectRoot = require('find-project-root'),
 
 function getPlatformInfo() {
     if (/linux/.test(process.platform)) {
-        return process.arch == 32 ? 'linux:ia32' : 'linux:x64'
+        return 'linux'
     } else if (/darwin/.test(process.platform)) {
-        return 'osx:' + process.arch
+        return 'osx'
     } else {
-        return 'windows:' + process.arch
+        return 'windows'
     }
 }
 
@@ -18,7 +18,7 @@ try {
     var targetDir = process.env.PREBUILT_TARGET_DIR || inf.targetDir || './bin'
     var targetBin = process.env.PREBUILT_BINARY || inf.targetBin
     var paths = inf.paths
-    var platform = process.env.PREBUILT_PLATFORM || inf.platform || getPlatformInfo().split(':')[0]
+    var platform = process.env.PREBUILT_PLATFORM || inf.platform || getPlatformInfo()
 } catch (e) {console.log(e)}
 
 if (targetBin)
