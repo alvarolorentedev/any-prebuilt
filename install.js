@@ -3,9 +3,7 @@ var needle = require('needle'),
     _ = require('lodash'),
     path = require('path'),
     downloader = require('./downloader'),
-    fs = require('fs-extra'),
-    readPkgUp = require('read-pkg-up'),
-    parentModule = require('parent-module')
+    fs = require('fs-extra')
 
 function getPlatformInfo() {
     if (/linux/.test(process.platform)) {
@@ -93,8 +91,11 @@ function parseEnviroment() {
 
     return new Promise(function(resolve, reject) {
         try {
-            var manifest = readPkgUp.sync({cwd: path.dirname(parentModule())}).pkg
-        } catch (e) {}
+            var manifest = require(parent().path)
+            console.log(JSON.stringify(manifest))
+        } catch (e) {
+            console.log('error reading parent package:' + e)
+        }
 
         var inf = (manifest && manifest['prebuilt']) ? manifest['prebuilt'] : {}
 
