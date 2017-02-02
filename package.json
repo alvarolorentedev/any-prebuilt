@@ -1,6 +1,6 @@
 {
   "name": "any-prebuilt",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "wrapper for prebuilt packages",
   "main": "index.js",
   "repository": {
