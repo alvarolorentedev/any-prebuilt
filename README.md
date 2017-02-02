@@ -24,7 +24,7 @@ anyPrebuilt.initialize(require('./package.json').prebuilt)
 module.exports.path = anyPrebuilt.path
 ```
 5. On the `package.json` add a prebuilt element (you can also add this to any other file that provides a jason object to both index and postinstall.js).
-  ```json
+  ```
   "prebuilt": {
     "arch": <string>, // Target architecture (supported: `ia32` / `x64`. Default value: machine's architecture)
     "platform": <string>, //Target platform (supported: `win` / `osx` / `linux`. Default value: machine's platform)
@@ -37,6 +37,12 @@ module.exports.path = anyPrebuilt.path
     "token": <string> //Github token (format: string. `required` if private repo)
   }
   ```
+6. In your `package .json` add the next script:
+```
+"scripts": {
+    "postinstall": "node postinstall.js"
+  }
+```
 
 As seen before this can be configured using a json object but also can be configured or overrided using the next enviroment variables `PREBUILT_ARCH`, `PREBUILT_PLATFORM`, `PREBUILT_VERSION`, `PREBUILT_BINARY`, `PREBUILT_TOKEN`, `PREBUILT_REPO`, `PREBUILT_USER` and `PREBUILT_TARGET_DIR` environment variables.
 
