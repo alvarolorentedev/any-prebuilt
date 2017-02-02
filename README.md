@@ -1,46 +1,44 @@
 # ![logomakr_3dkn9b](https://cloud.githubusercontent.com/assets/3071208/22477192/c7ce1d86-e7aa-11e6-87de-c24336e1ea3e.png)
 
-## Mission
-Easy integration of prebuilt packages or generation of prebuilt related repositories. It fetchs prebuilt binaries from github releases
+# Mission
+Easy generation or integration of prebuilt packages. It helps fetchs prebuilt binaries from github releases.
 
-## Installation
+# Generate a prebuilt package
 
+1. Create new project
 ```
-npm install any-prebuilt
+npm init
 ```
-
-## Configuration
-
-Before installing the package, you may need to configure a few things. Here's the list of configurable items:
-  - Origin user or Organization (format: string. Is `required`)
-  - Origin repo (format: string. Is `required`)
-  - Github token (format: string. `required` if private repo)
-  - Target architecture (supported: `ia32` / `x64`. Default value: machine's architecture)
-  - Target platform (supported: `win` / `osx` / `linux`. Default value: machine's platform)
-  - Target version (format: `vX.Y.Z`. Default value: latest)
-  - Target directory (where to install the binaries. Default value: `./bin`)
-  - Target binary (the precompiled binary to be required in node. No default value)
- 
-There are 2 ways you can configure these elements this:
-  - With the `PREBUILT_ARCH`, `PREBUILT_PLATFORM`, `PREBUILT_VERSION`, `PREBUILT_BINARY`, `PREBUILT_TOKEN`, `PREBUILT_REPO`, `PREBUILT_USER` and `PREBUILT_TARGET_DIR` environment variables. Here's an example:
-
-  ```
-  PREBUILT_USER=<user or organization> PREBUILT_REPO<repo> npm install prebuilt-prebuilt
-  ```
-  - By adding a `prebuilt` hash to your root `package.json` and defining the following keys: `arch`, `platform`, `version`, `targetDir`, `targetBin`, `user`, `repo` or `token`. Here's an example:
-  
-  ```
+2. Add this package as dependency
+```
+npm install any-prebuilt --save
+```
+3. Create `postinstall.js` file with content:
+```js
+require('any-prebuilt').install(require('./package.json').prebuilt)
+```
+4. Create `index.js` file with content:
+```js
+var anyPrebuilt = require('any-prebuilt')
+anyPrebuilt.initialize(require('./package.json').prebuilt)
+module.exports.path = anyPrebuilt.path
+```
+5. On the `package.json` add a prebuilt element (you can also add this to any other file that provides a jason object to both index and postinstall.js).
+  ```json
   "prebuilt": {
-    "version": "<tag>",
-    "user": "<user or organization>",
-    "repo": "<repo>",
-    "token": "<token if private>" 
+    "arch": <string>, // Target architecture (supported: `ia32` / `x64`. Default value: machine's architecture)
+    "platform": <string>, //Target platform (supported: `win` / `osx` / `linux`. Default value: machine's platform)
+    "version": <string>, //Target version (format: `vX.Y.Z`. Default value: latest)
+    "targetDir": <string>, //Target directory (where to install the binaries. Default value: `./bin`)
+    "targetBin": <string>, //Target binary (the precompiled binary to be required in node. No default value)
+    "version": <string>, //Target version (format: `vX.Y.Z`. Default value: latest)
+    "user": <string>, // user or Organization (format: string. Is `required`)
+    "repo": <string>, //Origin repo (format: string. Is `required`)
+    "token": <string> //Github token (format: string. `required` if private repo)
   }
   ```
 
-### State
-
-Under development, not on production yet.
+As seen before this can be configured using a json object but also can be configured or overrided using the next enviroment variables `PREBUILT_ARCH`, `PREBUILT_PLATFORM`, `PREBUILT_VERSION`, `PREBUILT_BINARY`, `PREBUILT_TOKEN`, `PREBUILT_REPO`, `PREBUILT_USER` and `PREBUILT_TARGET_DIR` environment variables.
 
 ### Special thanks
 
