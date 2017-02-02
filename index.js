@@ -12,7 +12,7 @@ function getPlatformInfo() {
 
 module.exports.install = require('./lib/install')
 
-module.exports.initialize = function initialize(manifest){
+module.exports.initialize = function initialize(basedir, manifest){
     var inf = manifest ? manifest : {}
     var targetDir = process.env.PREBUILT_TARGET_DIR || inf.targetDir || './bin'
     var targetBin = process.env.PREBUILT_BINARY || inf.targetBin
@@ -20,8 +20,8 @@ module.exports.initialize = function initialize(manifest){
     var platform = process.env.PREBUILT_PLATFORM || inf.platform || getPlatformInfo()
 
     if (targetBin)
-        module.exports.binary = require(targetDir + '/' + targetBin);
+        module.exports.binary = require(basedir + '/' + targetDir + '/' + targetBin);
 
     if(paths)
-        module.exports.path = path.join(__dirname, paths[platform])
+        module.exports.path = path.join(basedir, paths[platform])
 }

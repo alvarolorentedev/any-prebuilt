@@ -20,7 +20,7 @@ require('any-prebuilt').install(require('./package.json').prebuilt)
 4. Create `index.js` file with content:
 ```js
 var anyPrebuilt = require('any-prebuilt')
-anyPrebuilt.initialize(require('./package.json').prebuilt)
+anyPrebuilt.initialize(__dirname, require('./package.json').prebuilt)
 module.exports.path = anyPrebuilt.path
 ```
 5. On the `package.json` add a prebuilt element (you can also add this to any other file that provides a jason object to both index and postinstall.js).
