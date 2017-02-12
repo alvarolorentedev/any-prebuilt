@@ -9,6 +9,12 @@
   },
   "author": "kanekotic",
   "license": "MIT",
+  "keywords": [
+    "prebuilt",
+    "binaries",
+    "distribution",
+    "prebuild"
+  ],
   "bugs": {
     "url": "https://github.com/kanekotic/any-prebuilt/issues"
   },
