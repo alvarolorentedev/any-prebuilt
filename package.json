@@ -45,5 +45,12 @@
   "devDependencies": {
     "coveralls": "3.0.2",
     "jest": "23.3.0"
+  },
+  "jest": {
+    "testMatch": [
+      "**/test/**/*-test.js"
+    ],
+    "testEnvironment": "node",
+    "automock": false
   }
 }
