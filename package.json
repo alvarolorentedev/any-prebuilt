@@ -9,6 +9,17 @@
   },
   "author": "kanekotic",
   "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "test:dev": "jest --watchAll",
+    "test:cov": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "push": "yarn test && git push",
+    "deploy:major": "yarn version --major",
+    "deploy:minor": "yarn version --minor",
+    "deploy:patch": "yarn version --patch",
+    "preversion": "yarn test",
+    "postversion": "git push && git push --tags"
+  },
   "keywords": [
     "prebuilt",
     "binaries",
@@ -30,5 +41,9 @@
     "request": "2.87.0",
     "tar-fs": "1.16.3",
     "temp": "0.8.3"
+  },
+  "devDependencies": {
+    "coveralls": "3.0.2",
+    "jest": "23.3.0"
   }
 }
