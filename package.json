@@ -20,16 +20,15 @@
   },
   "homepage": "https://github.com/kanekotic/any-prebuilt#readme",
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "decompress-zip": "^0.3.0",
-    "fs-extra": "^2.1.2",
-    "gunzip-maybe": "^1.4.0",
-    "lodash": "^4.17.4",
-    "needle": "^1.5.2",
-    "progress": "^1.1.8",
-    "request": "^2.81.0",
-    "tape": "^4.6.3",
-    "tar-fs": "^1.15.2",
-    "temp": "^0.8.3"
+    "bluebird": "3.5.0",
+    "decompress-zip": "0.3.0",
+    "fs-extra": "2.1.2",
+    "gunzip-maybe": "1.4.0",
+    "lodash": "4.17.4",
+    "needle": "1.5.2",
+    "progress": "1.1.8",
+    "request": "2.81.0",
+    "tar-fs": "1.15.2",
+    "temp": "0.8.3"
   }
 }
