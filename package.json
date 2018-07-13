@@ -11,6 +11,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
+    "test:dev:refactor": "IS_REFACTOR=true jest --watchAll",
     "test:dev": "jest --watchAll",
     "test:cov": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "push": "yarn test && git push",
@@ -44,6 +45,7 @@
   },
   "devDependencies": {
     "coveralls": "3.0.2",
+    "faker": "4.1.0",
     "jest": "23.3.0"
   },
   "jest": {
