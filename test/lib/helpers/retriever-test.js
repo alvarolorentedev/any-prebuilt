@@ -1,13 +1,4 @@
-jest.mock('request-promise-native', () => {
-    let expectedFun = jest.fn()
-    return {
-        get: jest.fn(() => {
-            return {
-                on: expectedFun
-            }
-        })
-    }
-})
+jest.mock('request-promise-native', () => ({ get: jest.fn() }))
 const retriever = require('../../../lib/helpers/retriever'),
     faker = require('faker')
     request = require('request-promise-native')
