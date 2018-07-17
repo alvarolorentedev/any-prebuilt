@@ -8,7 +8,7 @@ jest.mock('../../../lib/helpers/file-system', () => ({
     _files: []
 }))
 
-const unpack = require('../../../lib/helpers/unpack'),
+const unpack = require('../../../lib/unpack/adapter-tgz'),
     fileSystem = require('../../../lib/helpers/file-system'),
     gunzip = require('gunzip-maybe'),
     tar = require('tar-fs'),
@@ -58,5 +58,4 @@ describe('unpack binary', () => {
             map: fileSystem.fileMapper
          })
     })
-    
 })
