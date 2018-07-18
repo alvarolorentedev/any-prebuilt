@@ -34,11 +34,30 @@ describe('file-system is windows function ', () => {
     });
 })
 
-describe('file-system file mapper ', () => {
+describe('file-system file mapper Tgz', () => {
+    beforeEach(() => {
+        fileSystem._files.length = 0
+      });
 
     test('should be true for platform windows', async () => {
         let header = {name : faker.random.uuid()}
-        expect(fileSystem.fileMapper(header)).toEqual(header)
+        expect(fileSystem.fileMapperTgz(header)).toEqual(header)
         expect(fileSystem._files).toEqual([{path: `pepe/${header.name}`}])
+    });
+})
+
+describe('file-system file mapper Zip', () => {
+    beforeEach(() => {
+        fileSystem._files.length = 0
+      });
+
+    test('should be true for platform windows', async () => {
+        let entry = {
+            path : `pepe/${faker.random.uuid()}`,
+            mode : `${faker.random.uuid()}`
+        }
+        expect(fileSystem.fileMapperZip(entry)).toEqual(true)
+        expect(fileSystem._files).toEqual([{path: entry.path,
+            mode : entry.mode }])
     });
 })

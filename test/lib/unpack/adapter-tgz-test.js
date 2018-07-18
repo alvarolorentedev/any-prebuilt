@@ -4,7 +4,7 @@ jest.mock('tar-fs', () => ({
 }))
 jest.mock('../../../lib/helpers/file-system', () => ({
     isWindows: jest.fn(),
-    fileMapper: jest.fn(),
+    fileMapperTgz: jest.fn(),
     _files: []
 }))
 
@@ -15,9 +15,9 @@ const unpack = require('../../../lib/unpack/adapter-tgz'),
     transform = require('stream').Transform,
     faker = require('faker')
 
-describe('unpack binary', () => {
+describe('unpack binary tgz', () => {
 
-    test('unpack tgz binary windows', async () => {
+    test('unpack binary windows', async () => {
         let destination = faker.random.uuid(),
         stream = new transform({ objectMode: true })
 
@@ -32,15 +32,15 @@ describe('unpack binary', () => {
         expect(gunzip).toBeCalled()
         expect(tar.extract).toBeCalledWith(destination, {  
             umask: false,
-            map: fileSystem.fileMapper
+            map: fileSystem.fileMapperTgz
          })
          expect(result).toEqual({
              destination: destination,
              files: []
-            })
+        })
     })
 
-    test('unpack tgz binary other', async () => {
+    test('unpack binary other', async () => {
         let destination = faker.random.uuid(),
         stream = new transform({ objectMode: true })
 
@@ -55,7 +55,7 @@ describe('unpack binary', () => {
         expect(gunzip).toBeCalledWith()
         expect(tar.extract).toBeCalledWith(destination, {  
             umask: 0,
-            map: fileSystem.fileMapper
+            map: fileSystem.fileMapperTgz
          })
     })
 })
