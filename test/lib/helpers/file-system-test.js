@@ -1,11 +1,19 @@
 jest.mock('path', () => ({
-    basename: jest.fn().mockImplementation((name) =>{
+    basename: jest.fn((name) =>{
         return `pepe/${name}`
-    })
+    }),
+    join: jest.fn()
+}))
+jest.mock('fs', () => ({
+    readdirSync: jest.fn(),
+    statSync: jest.fn(),
+    copy: jest.fn((_, __, cb) => cb()),
+    remove: jest.fn((_, cb) => cb())
 }))
 
 const fileSystem = require('../../../lib/helpers/file-system'),
-    path = require('path')
+    path = require('path'),
+    fs = require('fs'),
     faker = require('faker')
 
 describe('file-system is windows function ', () => {
@@ -59,5 +67,106 @@ describe('file-system file mapper Zip', () => {
         expect(fileSystem.fileMapperZip(entry)).toEqual(true)
         expect(fileSystem._files).toEqual([{path: entry.path,
             mode : entry.mode }])
+    });
+})
+
+describe('file-system strip root folder', () => {
+    beforeEach(() => {
+        path.join.mockClear()
+        fs.readdirSync.mockClear()
+        fs.copy.mockClear()
+        fs.remove.mockClear()
+      });
+
+    test('should strip root folder', async () => {
+        let params = {
+                destination : `pepe/${faker.random.uuid()}`
+            },
+            readdirResult = [faker.random.uuid()],
+            joinResult = faker.random.uuid(),
+            statSyncResult = {
+                isDirectory: () => true
+            }
+
+        fs.readdirSync.mockReturnValue(readdirResult)
+        path.join.mockReturnValue(joinResult)
+        fs.statSync.mockReturnValue(statSyncResult)
+        
+        await fileSystem.stripRootFolder(params)
+        
+        expect(fs.readdirSync).toBeCalledWith(params.destination)
+        expect(path.join).toBeCalledWith(params.destination,readdirResult[0])
+        expect(fs.copy).toBeCalledWith(joinResult, params.destination, expect.anything())
+        expect(fs.remove).toBeCalledWith(joinResult, expect.anything())
+        
+    });
+    
+    test('reject if copy fails', async () => {
+        let params = {
+                destination : `pepe/${faker.random.uuid()}`
+            },
+            readdirResult = [faker.random.uuid()],
+            joinResult = faker.random.uuid(),
+            statSyncResult = {
+                isDirectory: () => true
+            }
+
+        fs.readdirSync.mockReturnValue(readdirResult)
+        path.join.mockReturnValue(joinResult)
+        fs.statSync.mockReturnValue(statSyncResult)
+        fs.copy.mockImplementation(jest.fn((_, __, cb) => cb("error")))
+        
+        await expect(fileSystem.stripRootFolder(params)).rejects.toEqual("error")
+        
+        expect(fs.readdirSync).toBeCalledWith(params.destination)
+        expect(path.join).toBeCalledWith(params.destination,readdirResult[0])
+        expect(fs.copy).toBeCalledWith(joinResult, params.destination, expect.anything())
+        expect(fs.remove).not.toBeCalled()
+        
+    });
+    
+    test('should not strip root folder of not subfolder', async () => {
+        let params = {
+                destination : `pepe/${faker.random.uuid()}`
+            },
+            readdirResult = [],
+            joinResult = faker.random.uuid()
+
+        fs.readdirSync.mockReturnValue(readdirResult)
+        path.join.mockReturnValue(joinResult)
+
+        await fileSystem.stripRootFolder(params)
+        
+        expect(fs.readdirSync).toBeCalledWith(params.destination)
+        expect(path.join).not.toBeCalled()
+        expect(fs.copy).not.toBeCalled()
+        expect(fs.remove).not.toBeCalled()
+        
+    });
+    
+    test('should not strip root folder if is not directory', async () => {
+        let params = {
+                destination : `pepe/${faker.random.uuid()}`
+            },
+            readdirResult = [faker.random.uuid()],
+            joinResult = faker.random.uuid(),
+            statSyncResult = {
+                isDirectory: () => false
+            }
+
+        fs.readdirSync.mockReturnValue(readdirResult)
+        path.join.mockReturnValue(joinResult)
+        fs.statSync.mockReturnValue(statSyncResult)
+
+        fs.readdirSync.mockReturnValue(readdirResult)
+        path.join.mockReturnValue(joinResult)
+
+        await fileSystem.stripRootFolder(params)
+        
+        expect(fs.readdirSync).toBeCalledWith(params.destination)
+        expect(path.join).toBeCalledWith(params.destination,readdirResult[0])
+        expect(fs.copy).not.toBeCalled()
+        expect(fs.remove).not.toBeCalled()
+        
     });
 })
