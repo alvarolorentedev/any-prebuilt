@@ -170,3 +170,35 @@ describe('file-system strip root folder', () => {
         
     });
 })
+
+describe('file-system move file', () => {
+    beforeEach(() => {
+        fs.copy.mockClear()
+        fs.remove.mockClear()
+      });
+
+    test('should move files if no error', async () => {
+        let destination = faker.system.directoryPath(),
+            cachePath =faker.system.directoryPath()
+        
+        fs.copy.mockImplementation(jest.fn((_, __, cb) => cb()))
+
+        await fileSystem.move(cachePath, destination)
+        
+        expect(fs.copy).toBeCalledWith(cachePath, destination, expect.anything())
+        expect(fs.remove).toBeCalledWith(cachePath, expect.anything())
+        
+    });
+    test('should reject if error on copy', async () => {
+        let destination = faker.system.directoryPath(),
+            cachePath =faker.system.directoryPath()
+
+        fs.copy.mockImplementation(jest.fn((_, __, cb) => cb("Error")))
+
+        await expect(fileSystem.move(cachePath, destination)).rejects.toEqual("Error")
+        
+        expect(fs.copy).toBeCalledWith(cachePath, destination, expect.anything())
+        expect(fs.remove).not.toBeCalled()
+        
+    });
+});
