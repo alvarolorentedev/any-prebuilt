@@ -29,8 +29,7 @@ describe('retriever', () => {
                 sendImmediately: true
             }
         }
-        await retriever(url, defaultProgress, token)
-        await retriever(url, defaultProgress, token)
+        await retriever(url, token)
         expect(request.get).toBeCalledWith(settings)
     })
 
@@ -55,24 +54,6 @@ describe('retriever', () => {
         let result = await retriever(url)
 
         expect(result).toEqual(expectResult)
-
-    })
-
-    test('retrieve track progress', async () => {
-        let url = faker.internet.url(),
-            chunk = { length: faker.random.number()},
-            progress = jest.fn()
-
-        onMock.mockImplementation((type,cb) => {
-            if(type == 'data')
-                cb(chunk)
-            else
-                throw "here be dragons"
-        })
-
-        await retriever(url,progress)
-
-        expect(progress).toBeCalledWith(chunk.length)
 
     })
 })
