@@ -29,6 +29,6 @@ describe('download', () => {
         expect(retriever).toBeCalledWith(url, token)
         expect(tracker).toBeCalledWith(retrieverResult)
         expect(path.extname).toBeCalledWith(name)
-        expect(unpacker).toBeCalledWith(destination, retrieverResult, extname)
+        expect(unpacker).toBeCalledWith(extname, retrieverResult, destination)
     })
 })

@@ -59,7 +59,7 @@ describe('unpack binary zip', () => {
         let result = await unpack(stream, destination)
         
         expect(temp.track).toBeCalled()
-        expect(temp.createWriteStream).toBeCalledWith('temp.zip')
+        expect(temp.createWriteStream).toBeCalledWith()
         expect(extractMock).toBeCalledWith({ path: destination, filter: fileSystem.fileMapperZip })
         fileSystem._files.forEach((file) => {
             expect(fs.chmodSync).toBeCalledWith(`${destination}/${file.path}`, file.mode)
