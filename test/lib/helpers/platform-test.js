@@ -79,8 +79,7 @@ describe('map should', () => {
         platform._.getInfo.mockImplementation( () => 'linux:x64')
         expect(platform.map(manifest).runtime.platform).toEqual('linux')
     })
-//         var platform = process.env.PREBUILT_PLATFORM || inf.platform || getPlatformInfo().split(':')[0]
-//         var arch = process.env.PREBUILT_ARCH || inf.arch || getPlatformInfo().split(':')[1]
+
     test('user as environment variable PREBUILT_USER', async () => {
         process.env.PREBUILT_USER = faker.random.uuid()
         expect(platform.map(manifest).user).toEqual(process.env.PREBUILT_USER)
@@ -247,47 +246,3 @@ describe('validate should', () => {
     });
     
 })    
-
-//// function parseEnviroment(manifest) {
-////     var supported = {
-////         platforms: ['osx', 'windows', 'linux', 'all'],
-////         arch: ['ia32', 'x64', 'all']
-////     }
-
-////     return new Promise(function(resolve, reject) {
-
-//         var inf = manifest ? manifest : {}
-
-//         var platform = process.env.PREBUILT_PLATFORM || inf.platform || getPlatformInfo().split(':')[0]
-//         var arch = process.env.PREBUILT_ARCH || inf.arch || getPlatformInfo().split(':')[1]
-////         var version = process.env.PREBUILT_VERSION || inf.version || 'latest'
-////         var targetDir = process.env.PREBUILT_TARGET_DIR || inf.targetDir || './bin'
-
-////         var user = process.env.PREBUILT_USER || inf.user;
-////         var repo = process.env.PREBUILT_REPO || inf.repo;
-////         var token = process.env.PREBUILT_TOKEN || inf.token;
-
-//         fs.mkdirsSync(targetDir)
-
-//         console.log('Fetching prebuilt' + ':', '\n version:', version, 
-//             '\n'+ '\nPlatform:', platform, '\nArch:', arch,
-//             '\nTarget dir:', targetDir);
-
-////         if ( !(supported.platforms.indexOf(platform) > -1) || !(supported.arch.indexOf(arch) > -1))
-////             return reject('Unsupported arch or platform')
-////         else if (!user || !repo)
-////             return reject('required user & repo')
-
-////         resolve({
-////             runtime: {
-////                 arch: arch,
-////                 platform: platform
-////             },
-////             dir: targetDir,
-////             version: version,
-////             user: user,
-////             repo: repo,
-////             token: token
-////         });
-////     });
-//// }
