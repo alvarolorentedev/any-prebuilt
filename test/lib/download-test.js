@@ -1,4 +1,4 @@
-jest.mock('../../lib/retriever', () => jest.fn())
+jest.mock('../../lib/retriever', () => ({ getPackage: jest.fn()}))
 jest.mock('../../lib/unpack/unpacker', () => jest.fn())
 jest.mock('../../lib/helpers/progress-tracker', () => jest.fn())
 jest.mock('path', () => ({
@@ -21,12 +21,12 @@ describe('download', () => {
             extname = faker.random.uuid(),
             retrieverResult = faker.random.uuid()
 
-        retriever.mockReturnValue(retrieverResult)
+        retriever.getPackage.mockReturnValue(retrieverResult)
         path.extname.mockReturnValue(extname)
 
         await download(destination, name, url, token)
 
-        expect(retriever).toBeCalledWith(url, token)
+        expect(retriever.getPackage).toBeCalledWith(url, token)
         expect(tracker).toBeCalledWith(retrieverResult)
         expect(path.extname).toBeCalledWith(name)
         expect(unpacker).toBeCalledWith(extname, retrieverResult, destination)

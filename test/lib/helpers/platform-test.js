@@ -246,3 +246,8 @@ describe('validate should', () => {
     });
     
 })    
+// fs.mkdirsSync(targetDir)
+
+// console.log('Fetching prebuilt' + ':', '\n version:', version, 
+//     '\n'+ '\nPlatform:', platform, '\nArch:', arch,
+//     '\nTarget dir:', targetDir);

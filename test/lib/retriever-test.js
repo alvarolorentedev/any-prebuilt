@@ -14,7 +14,6 @@ describe('retriever', () => {
         })
     })
 
-    let defaultProgress = () => {}
     test('retriever calls get with correct settings with token for private repos', async () => {
         let url = faker.internet.url(),
             token = faker.internet.url(),
@@ -29,7 +28,7 @@ describe('retriever', () => {
                 sendImmediately: true
             }
         }
-        await retriever(url, token)
+        await retriever.getPackage(url, token)
         expect(request.get).toBeCalledWith(settings)
     })
 
@@ -42,7 +41,7 @@ describe('retriever', () => {
                 Accept: 'application/octet-stream'
             }
         }
-        await retriever(url)
+        await retriever.getPackage(url)
         expect(request.get).toBeCalledWith(settings)
     })
 
@@ -51,7 +50,7 @@ describe('retriever', () => {
         let expectResult = {on: () =>{}, a : faker.random.uuid()}
         request.get.mockReturnValue(expectResult)
 
-        let result = await retriever(url)
+        let result = await retriever.getPackage(url)
 
         expect(result).toEqual(expectResult)
 
