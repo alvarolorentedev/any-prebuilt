@@ -124,9 +124,48 @@ describe('map should', () => {
 
 
 describe('getInfo should', () => {
-    test('', async () => {
+    beforeEach(() => {
+      platform._.getArchitecture = jest.fn()
+      platform._.getPlatform = jest.fn()
+    });
+
+    test('should return linux:ia32 when is that architecture', async () => {
+        platform._.getArchitecture.mockImplementation( () => 32)
+        platform._.getPlatform.mockImplementation( () => "linux")
+        expect(platform.getInfo()).toEqual('linux:ia32')
+    })
+
+    test('should return linux:x64 when is that architecture', async () => {
+        platform._.getArchitecture.mockImplementation( () => 64)
+        platform._.getPlatform.mockImplementation( () => "linux")
+        expect(platform.getInfo()).toEqual('linux:x64')
+    })
+
+    test('should return osx:ia32 when is that architecture', async () => {
+        platform._.getArchitecture.mockImplementation( () =>  'ia32')
+        platform._.getPlatform.mockImplementation( () => "darwin")
+        expect(platform.getInfo()).toEqual('osx:ia32')
+    })
+
+    test('should return osx:x64 when is that architecture', async () => {
+        platform._.getArchitecture.mockImplementation( () => 'x64')
+        platform._.getPlatform.mockImplementation( () => "darwin")
+        expect(platform.getInfo()).toEqual('osx:x64')
+    })
+
+    test('should return windows:ia32 when is that architecture', async () => {
+        platform._.getArchitecture.mockImplementation( () => 'ia32')
+        platform._.getPlatform.mockImplementation( () => "win")
+        expect(platform.getInfo()).toEqual('windows:ia32')
+    })
+
+    test('should return windows:x64 when is that architecture', async () => {
+        platform._.getArchitecture.mockImplementation( () => 'x64')
+        platform._.getPlatform.mockImplementation( () => "win")
+        expect(platform.getInfo()).toEqual('windows:x64')
     })
 })
+
 describe('validate should', () => {
 
     let manifest
