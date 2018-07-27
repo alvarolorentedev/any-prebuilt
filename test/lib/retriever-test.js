@@ -3,7 +3,7 @@ const retriever = require('../../lib/retriever'),
     faker = require('faker')
     request = require('request-promise-native')
 
-describe('retriever', () => {
+describe('retriever package', () => {
     let onMock = jest.fn()
 
     beforeEach(() => {
@@ -56,3 +56,116 @@ describe('retriever', () => {
 
     })
 })
+
+describe('retriever package info', () => {
+    let manifest
+
+    beforeEach(() => {
+        manifest = {
+            platform: 'all',
+            arch: 'all',
+            user: faker.random.uuid(),
+            repo: faker.random.uuid(),
+            token: faker.random.uuid(),
+            version: faker.random.uuid(),
+            targetDir: faker.random.uuid()
+        } 
+    })
+
+    test('should query package endpoint for latest version', async () => {
+        manifest.version = 'latest'
+        manifest.token = undefined
+        let expectedUrl = 'https://api.github.com/repos/'+ manifest.user +'/'+ manifest.repo + '/releases/' 
+                    + 'latest'
+        let settings = { 
+                url: expectedUrl,
+                json: true,
+                headers: {
+                    'User-Agent': 'request',
+                }
+            }
+        await retriever.getReleaseInfo(manifest)
+        expect(request.get).toBeCalledWith(settings)
+    })
+
+    test('should query package endpoint for tag version', async () => {
+        manifest.token = undefined
+        let expectedUrl = 'https://api.github.com/repos/'+ manifest.user +'/'+ manifest.repo + '/releases/' 
+                    + 'tags/' + manifest.version
+                    + (manifest.token? ('?access_token='+manifest.token) : '')
+        let settings = { 
+                url: expectedUrl,
+                json: true,
+                headers: {
+                    'User-Agent': 'request',
+                }
+            }
+        await retriever.getReleaseInfo(manifest)
+        expect(request.get).toBeCalledWith(settings)
+    })
+
+    test('should query package endpoint with token token', async () => {
+        let expectedUrl = 'https://api.github.com/repos/'+ manifest.user +'/'+ manifest.repo + '/releases/' 
+                    + 'tags/' + manifest.version
+                    + '?access_token='+manifest.token
+        let settings = { 
+                url: expectedUrl,
+                json: true,
+                headers: {
+                    'User-Agent': 'request',
+                }
+            }
+        await retriever.getReleaseInfo(manifest)
+        expect(request.get).toBeCalledWith(settings)
+    })
+})
+
+// function getPrebuilt(data) {
+//     return new Promise(function(resolve, reject) {
+//         var releaseURL = 'https://api.github.com/repos/'+ data.user +'/'+ data.repo + '/releases/' 
+//                             + (data.version === 'latest' ? 'latest' : ('tags/' + data.version))
+//                             + (data.token? ('?access_token='+data.token) : '')
+//         console.log('');
+//         console.log('Looking for prebuilt at ' + releaseURL);
+//         console.log('');
+//         getJson(releaseURL)
+//             .then(function(json) {
+//                 if (json.message === 'Not Found') {
+//                     reject('No prebuilt release found at the searched URL');
+//                 }
+//                 var candidate = null;
+
+//                 _.every(json.assets, function(asset) {
+//                     var assetParsed = path.parse(asset.name).name.replace('.tar', '').split('_');
+                    
+//                     var assetRuntime = {
+//                         arch: assetParsed[3],
+//                         platform: assetParsed[2]
+//                     };
+//                     if (_.isEqual(data.runtime, assetRuntime)){
+//                         candidate = asset;
+//                         console.log(asset.name, '\x1b[32m', 'matching environment' + (data.version === 'latest' ? ': continuing for more recent release' : ''), '\x1b[0m');
+//                         return data.version === 'latest';
+//                     }
+//                     else{
+//                         console.log(asset.name, '\x1b[31m', 'not matching environment' ,'\x1b[0m');
+//                         return true;
+//                     }
+//                 });
+                
+//                 console.log('');
+
+//                 if (!candidate) {
+//                     reject('No Prebuilt release found matching your environment');
+//                 }
+
+//                 console.log('Acquiring: ', candidate.name);
+
+//                 downloader.downloadAndUnpack(data.dir, candidate.name, candidate.url, data.token)
+//                     .then(function() {
+//                         resolve(data)
+//                     }).catch(console.log);
+//             })
+//             .catch(reject)
+//     });
+// }
