@@ -122,17 +122,17 @@ describe('map should', () => {
     });
 
     test('accept random string as targetDir', async () => {
-        expect(platform.manifest.map(manifest).targetDir).toEqual(manifest.targetDir)
+        expect(platform.manifest.map(manifest).dir).toEqual(manifest.targetDir)
     });
 
     test('default targetDir as ./bin', async () => {
         manifest.targetDir = undefined
-        expect(platform.manifest.map(manifest).targetDir).toEqual('./bin')
+        expect(platform.manifest.map(manifest).dir).toEqual('./bin')
     });
 
     test('targetDir as environment variable PREBUILT_TARGET_DIR', async () => {
         process.env.PREBUILT_TARGET_DIR = faker.random.uuid()
-        expect(platform.manifest.map(manifest).targetDir).toEqual(process.env.PREBUILT_TARGET_DIR)
+        expect(platform.manifest.map(manifest).dir).toEqual(process.env.PREBUILT_TARGET_DIR)
     });
 })
 
