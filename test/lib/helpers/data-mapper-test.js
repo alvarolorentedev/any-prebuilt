@@ -246,8 +246,26 @@ describe('validate should', () => {
     });
     
 })    
-// fs.mkdirsSync(targetDir)
 
-// console.log('Fetching prebuilt' + ':', '\n version:', version, 
-//     '\n'+ '\nPlatform:', platform, '\nArch:', arch,
-//     '\nTarget dir:', targetDir);
+describe('map assets', () => {
+
+    beforeEach(() => {
+      });
+
+    test(`extract architecture and platform from assests`, async () => {
+        let url = faker.internet.url(),
+            expectedArch = faker.random.uuid(),
+            expectePlatform = faker.random.uuid(),
+            filename = `${faker.random.uuid()}_${expectePlatform}_${expectedArch}.zip`
+            settings = { arch: expectedArch, platform: expectePlatform },
+            requestResult = {
+                assets:[
+                    {
+                        name: `${url}/${filename}`
+                    }
+                ]
+            }
+
+        expect(platform.releases.map(requestResult, settings)).toEqual(requestResult.assets[0])
+    })
+})
