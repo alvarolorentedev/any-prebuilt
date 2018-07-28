@@ -21,7 +21,7 @@ jest.mock('temp', () => ({
     createWriteStream: jest.fn()
 }))
 
-jest.mock('fs', () => ({
+jest.mock('fs-extra', () => ({
     chmodSync: jest.fn()
 }))
 
@@ -30,7 +30,7 @@ const unpack = require('../../../lib/unpack/adapter-zip'),
     transform = require('stream').Transform,
     temp = require('temp'),
     decompress = require('decompress-zip'),
-    fs = require('fs'),
+    fs = require('fs-extra'),
     path = require('path'),
     faker = require('faker')
 

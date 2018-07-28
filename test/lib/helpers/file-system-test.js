@@ -4,7 +4,7 @@ jest.mock('path', () => ({
     }),
     join: jest.fn()
 }))
-jest.mock('fs', () => ({
+jest.mock('fs-extra', () => ({
     readdirSync: jest.fn(),
     statSync: jest.fn(),
     copy: jest.fn((_, __, cb) => cb()),
@@ -13,7 +13,7 @@ jest.mock('fs', () => ({
 
 const fileSystem = require('../../../lib/helpers/file-system'),
     path = require('path'),
-    fs = require('fs'),
+    fs = require('fs-extra'),
     faker = require('faker')
 
 describe('file-system is windows function ', () => {
