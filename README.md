@@ -1,7 +1,13 @@
 # ![logomakr_3dkn9b](https://cloud.githubusercontent.com/assets/3071208/22477192/c7ce1d86-e7aa-11e6-87de-c24336e1ea3e.png)
+[![Build Status](https://travis-ci.org/kanekotic/any-prebuilt.svg?branch=master)](https://travis-ci.org/kanekotic/any-prebuilt)
+[![Coverage Status](https://coveralls.io/repos/github/kanekotic/any-prebuilt/badge.svg?branch=master)](https://coveralls.io/github/kanekotic/any-prebuilt?branch=master)
+[![npm](https://img.shields.io/npm/dt/any-prebuilt.svg)](https://github.com/kanekotic/any-prebuilt)
+[![GitHub license](https://img.shields.io/github/license/kanekotic/any-prebuilt.svg)](https://github.com/kanekotic/any-prebuilt/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/kanekotic/any-prebuilt/graphs/commit-activity)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/kanekotic/)
 
 # Mission
-Easy generation or integration of prebuilt packages. It helps fetchs prebuilt binaries from github releases.
+Easy generator or integration of prebuilt packages for use with `npm` or `yarn`. It helps fetchs prebuilt binaries from github releases that will be bind as part of your package.
 
 # Generate a prebuilt package
 
@@ -31,7 +37,6 @@ module.exports.path = anyPrebuilt.path
     "version": <string>, //Target version (format: `vX.Y.Z`. Default value: latest)
     "targetDir": <string>, //Target directory (where to install the binaries. Default value: `./bin`)
     "targetBin": <string>, //Target binary (the precompiled binary to be required in node. No default value)
-    "version": <string>, //Target version (format: `vX.Y.Z`. Default value: latest)
     "user": <string>, // user or Organization (format: string. Is `required`)
     "repo": <string>, //Origin repo (format: string. Is `required`)
     "token": <string> //Github token (format: string. `required` if private repo)
@@ -45,10 +50,6 @@ module.exports.path = anyPrebuilt.path
 ```
 
 As seen before this can be configured using a json object but also can be configured or overrided using the next enviroment variables `PREBUILT_ARCH`, `PREBUILT_PLATFORM`, `PREBUILT_VERSION`, `PREBUILT_BINARY`, `PREBUILT_TOKEN`, `PREBUILT_REPO`, `PREBUILT_USER` and `PREBUILT_TARGET_DIR` environment variables.
-
-### Special thanks
-
-to all the contributors to [wcjs-prebuilt](https://github.com/Ivshti/wcjs-prebuilt) that this package is based on.
 
 ### Logo
 Hours graphic by <a href="http://www.flaticon.com/authors/freepik">Freepik</a> from <a href="http://www.flaticon.com/">Flaticon</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>. Made with <a href="http://logomakr.com" title="Logo Maker">Logo Maker</a>
