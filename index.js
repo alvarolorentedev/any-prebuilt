@@ -1,6 +1,4 @@
-let path = require('path'),
-    toggles = require('./lib/helpers/toggles')
-
+let path = require('path')
 
 function getPlatformInfo() {
     if (/linux/.test(process.platform)) {
@@ -12,7 +10,7 @@ function getPlatformInfo() {
     }
 }
 
-module.exports.install = toggles.isRefactor()? require('./lib/installer') : require('./lib/install')
+module.exports.install = require('./lib/installer')
 
 module.exports.initialize = function initialize(basedir, manifest){
     var inf = manifest ? manifest : {}
