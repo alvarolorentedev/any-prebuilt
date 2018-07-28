@@ -264,11 +264,15 @@ describe('map assets', () => {
             requestResult = {
                 assets:[
                     {
-                        name: `${url}/${filename}`
+                        name: `${url}/${filename}`,
+                        something: faker.random.uuid()
+                    },
+                    {
+                        name: `${url}/${filename}`,
+                        something: faker.random.uuid()
                     }
                 ]
             }
-
-        expect(platform.releases.map(requestResult, runtime)).toEqual(requestResult.assets[0])
+        expect(platform.releases.map(JSON.parse(JSON.stringify(requestResult)), runtime)).toEqual(requestResult.assets[1])
     })
 })
