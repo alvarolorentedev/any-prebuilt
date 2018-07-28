@@ -36,6 +36,7 @@ describe('index', () => {
                 targetDir: faker.random.uuid(),  
             },
             mappedManifest = { 
+                runtime : { something: faker.random.uuid() },
                 dir: faker.random.uuid(),
                 token: faker.random.uuid()
              },
@@ -60,7 +61,7 @@ describe('index', () => {
         expect(platform.manifest.validate).toHaveBeenNthCalledWith(1, mappedManifest)
         expect(logger.log).toBeCalledWith(expectedMessageManifest)
         expect(retriever.getReleaseInfo).toBeCalledWith(mappedManifest)
-        expect(platform.releases.map).toBeCalledWith(mappedResponse, mappedManifest)
+        expect(platform.releases.map).toBeCalledWith(mappedResponse, mappedManifest.runtime)
         expect(logger.log).toHaveBeenNthCalledWith(2, expectedMessageMapAssets)
         expect(download).toBeCalledWith(mappedManifest.dir , mappedAsset.name, mappedAsset.url, mappedManifest.token)
         expect(logger.log).toHaveBeenNthCalledWith(3, expectedMessageDownload)
