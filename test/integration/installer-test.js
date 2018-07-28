@@ -9,7 +9,8 @@ describe('download should', () => {
             "targetDir": "./temp",
             "version": "latest",
             "user": "kanekotic",
-            "repo": "any-prebuilt-test"
+            "repo": "any-prebuilt-test",
+            "token": process.env.GITHUB_TEST_TOKEN
           }
         await installer(manifest)
         expect(fs.existsSync("./temp/test/hello.txt")).toBeTruthy()
