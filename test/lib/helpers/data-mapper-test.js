@@ -252,12 +252,15 @@ describe('map assets', () => {
     beforeEach(() => {
       });
 
-    test(`extract architecture and platform from assests`, async () => {
+    test(`extract architecture and platform from assets`, async () => {
         let url = faker.internet.url(),
             expectedArch = faker.random.uuid(),
-            expectePlatform = faker.random.uuid(),
-            filename = `${faker.random.uuid()}_${expectePlatform}_${expectedArch}.zip`
-            settings = { arch: expectedArch, platform: expectePlatform },
+            expectedPlatform = faker.random.uuid(),
+            runtime = {
+                    arch: expectedArch, 
+                    platform: expectedPlatform
+            },
+            filename = `${faker.random.uuid()}_${expectedPlatform}_${expectedArch}.zip`,
             requestResult = {
                 assets:[
                     {
@@ -266,6 +269,6 @@ describe('map assets', () => {
                 ]
             }
 
-        expect(platform.releases.map(requestResult, settings)).toEqual(requestResult.assets[0])
+        expect(platform.releases.map(requestResult, runtime)).toEqual(requestResult.assets[0])
     })
 })
