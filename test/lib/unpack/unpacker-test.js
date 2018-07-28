@@ -1,12 +1,26 @@
 jest.mock('../../../lib/unpack/adapter-tgz', () => jest.fn(() => "unpacked tgz"))
 jest.mock('../../../lib/unpack/adapter-zip', () => jest.fn(() => "unpacked zip"))
+jest.mock('fs-extra', () => ({
+    mkdirsSync: jest.fn()
+}))
 
 const unpacker = require('../../../lib/unpack/unpacker'),
     adapterTgz = require('../../../lib/unpack/adapter-tgz'),
     adapterZip = require('../../../lib/unpack/adapter-zip'),
+    fs = require('fs-extra'),
     faker = require('faker')
 
 describe('unpacker should', () => {
+
+    test('call generate destination folder', async () => {
+        let extension = '.zip',
+            stream = faker.random.uuid(),
+            destination = faker.random.uuid()
+        
+        await unpacker(extension, stream, destination)
+        
+        expect(fs.mkdirsSync).toBeCalledWith(destination)
+    })
 
     test('call adapter zip if .zip extension', async () => {
         let extension = '.zip',
