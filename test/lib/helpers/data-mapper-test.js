@@ -1,4 +1,4 @@
-const platform = require('../../../lib/helpers/platform'),
+const platform = require('../../../lib/helpers/data-mapper'),
     faker = require('faker')
 
 describe('map should', () => {
@@ -37,13 +37,13 @@ describe('map should', () => {
     .forEach((param) => {
         test(`accept ${param} as platform`, async () => {
             manifest.platform = param
-            expect(platform.map(manifest).runtime.platform).toEqual(manifest.platform)
+            expect(platform.manifest.map(manifest).runtime.platform).toEqual(manifest.platform)
         })
     });
 
     test('platform as environment variable PREBUILT_PLATFORM', async () => {
         process.env.PREBUILT_PLATFORM = 'linux'
-        expect(platform.map(manifest).runtime.platform).toEqual(process.env.PREBUILT_PLATFORM)
+        expect(platform.manifest.map(manifest).runtime.platform).toEqual(process.env.PREBUILT_PLATFORM)
     });
 
     ['ia32', 'x64', 'all']
@@ -51,18 +51,18 @@ describe('map should', () => {
         test(`accept ${param} as architecture`, async () => {
             manifest.arch = param
     
-            expect(platform.map(manifest).runtime.arch).toEqual(manifest.arch)
+            expect(platform.manifest.map(manifest).runtime.arch).toEqual(manifest.arch)
         })
     });
 
     test('architecture as environment variable PREBUILT_ARCH', async () => {
         process.env.PREBUILT_ARCH = 'x64'
-        expect(platform.map(manifest).runtime.arch).toEqual(process.env.PREBUILT_ARCH)
+        expect(platform.manifest.map(manifest).runtime.arch).toEqual(process.env.PREBUILT_ARCH)
     });
 
     test('should try to map even if undefined manifest', async () => {
         try {
-            platform.map(undefined)
+            platform.manifest.map(undefined)
         } catch (error) {
             expect(true).toBeFalsy()
         }
@@ -71,68 +71,68 @@ describe('map should', () => {
     test('architecture as second parameter of _.getInfo', async () => {
         manifest.arch = undefined
         platform._.getInfo.mockImplementation( () => 'linux:x64')
-        expect(platform.map(manifest).runtime.arch).toEqual('x64')
+        expect(platform.manifest.map(manifest).runtime.arch).toEqual('x64')
     })
 
     test('architecture as second parameter of _.getInfo', async () => {
         manifest.platform = undefined
         platform._.getInfo.mockImplementation( () => 'linux:x64')
-        expect(platform.map(manifest).runtime.platform).toEqual('linux')
+        expect(platform.manifest.map(manifest).runtime.platform).toEqual('linux')
     })
 
     test('user as environment variable PREBUILT_USER', async () => {
         process.env.PREBUILT_USER = faker.random.uuid()
-        expect(platform.map(manifest).user).toEqual(process.env.PREBUILT_USER)
+        expect(platform.manifest.map(manifest).user).toEqual(process.env.PREBUILT_USER)
     });
 
 
     test('accept random string as user', async () => {
-        expect(platform.map(manifest).user).toEqual(manifest.user)
+        expect(platform.manifest.map(manifest).user).toEqual(manifest.user)
     });
     test('accept random string as repo', async () => {
-        expect(platform.map(manifest).repo).toEqual(manifest.repo)
+        expect(platform.manifest.map(manifest).repo).toEqual(manifest.repo)
     });
 
     test('repo as environment variable PREBUILT_REPO', async () => {
         process.env.PREBUILT_REPO = faker.random.uuid()
-        expect(platform.map(manifest).repo).toEqual(process.env.PREBUILT_REPO)
+        expect(platform.manifest.map(manifest).repo).toEqual(process.env.PREBUILT_REPO)
     });
 
     test('accept random string as token', async () => {
-        expect(platform.map(manifest).token).toEqual(manifest.token)
+        expect(platform.manifest.map(manifest).token).toEqual(manifest.token)
     });
 
     test('token as environment variable PREBUILT_TOKEN', async () => {
         process.env.PREBUILT_TOKEN = faker.random.uuid()
-        expect(platform.map(manifest).token).toEqual(process.env.PREBUILT_TOKEN)
+        expect(platform.manifest.map(manifest).token).toEqual(process.env.PREBUILT_TOKEN)
     });
 
     test('accept random string as version', async () => {
-        expect(platform.map(manifest).version).toEqual(manifest.version)
+        expect(platform.manifest.map(manifest).version).toEqual(manifest.version)
     });
 
     test('default version as latest', async () => {
         manifest.version = undefined
-        expect(platform.map(manifest).version).toEqual('latest')
+        expect(platform.manifest.map(manifest).version).toEqual('latest')
     });
 
     test('version as environment variable PREBUILT_VERSION', async () => {
         process.env.PREBUILT_VERSION = faker.random.uuid()
-        expect(platform.map(manifest).version).toEqual(process.env.PREBUILT_VERSION)
+        expect(platform.manifest.map(manifest).version).toEqual(process.env.PREBUILT_VERSION)
     });
 
     test('accept random string as targetDir', async () => {
-        expect(platform.map(manifest).targetDir).toEqual(manifest.targetDir)
+        expect(platform.manifest.map(manifest).targetDir).toEqual(manifest.targetDir)
     });
 
     test('default targetDir as ./bin', async () => {
         manifest.targetDir = undefined
-        expect(platform.map(manifest).targetDir).toEqual('./bin')
+        expect(platform.manifest.map(manifest).targetDir).toEqual('./bin')
     });
 
     test('targetDir as environment variable PREBUILT_TARGET_DIR', async () => {
         process.env.PREBUILT_TARGET_DIR = faker.random.uuid()
-        expect(platform.map(manifest).targetDir).toEqual(process.env.PREBUILT_TARGET_DIR)
+        expect(platform.manifest.map(manifest).targetDir).toEqual(process.env.PREBUILT_TARGET_DIR)
     });
 })
 
@@ -202,7 +202,7 @@ describe('validate should', () => {
         test(`not accept ${param} as platform`, async () => {
             manifest.runtime.platform = param
             try {
-                platform.validate(manifest)
+                platform.manifest.validate(manifest)
                 expect(true).toBeFalsy()
             } catch (error) {
                 expect(error).toEqual("Unsupported platform")
@@ -215,7 +215,7 @@ describe('validate should', () => {
         test(`not accept ${param} as arch`, async () => {
             manifest.runtime.arch = param
             try {
-                platform.validate(manifest)
+                platform.manifest.validate(manifest)
                 expect(true).toBeFalsy()
             } catch (error) {
                 expect(error).toEqual("Unsupported architecture")
@@ -228,7 +228,7 @@ describe('validate should', () => {
         test(`not accept ${param} as user`, async () => {
             manifest.user = param
             try {
-                platform.validate(manifest)
+                platform.manifest.validate(manifest)
                 expect(true).toBeFalsy()
             } catch (error) {
                 expect(error).toEqual("User needs to be defined")
@@ -237,7 +237,7 @@ describe('validate should', () => {
         test(`not accept ${param} as user`, async () => {
             manifest.repo = param
             try {
-                platform.validate(manifest)
+                platform.manifest.validate(manifest)
                 expect(true).toBeFalsy()
             } catch (error) {
                 expect(error).toEqual("Repository needs to be defined")

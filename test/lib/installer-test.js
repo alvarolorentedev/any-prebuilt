@@ -1,4 +1,4 @@
-jest.mock('../../lib/helpers/platform', () => ({
+jest.mock('../../lib/helpers/data-mapper', () => ({
     map: jest.fn(), 
     validate: jest.fn()
 }))
@@ -6,7 +6,7 @@ jest.mock('../../lib/retriever', () => ({
     getReleaseInfo: jest.fn()
 }))
 const installer = require('../../lib/installer'),
-    platform = require('../../lib/helpers/platform'),
+    platform = require('../../lib/helpers/data-mapper'),
     retriever = require('../../lib/retriever'),
     faker = require('faker')
 
