@@ -11,7 +11,6 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "test:dev:refactor": "IS_REFACTOR=true jest --watchAll",
     "test:dev": "jest --watchAll test/lib",
     "test:int": "jest test/integration",
     "test:cov": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
@@ -19,26 +18,24 @@
     "deploy:major": "yarn version --major",
     "deploy:minor": "yarn version --minor",
     "deploy:patch": "yarn version --patch",
-    "preversion": "yarn test",
-    "postversion": "git push && git push --tags"
+    "deploy:push": "git push && git push --tags",
+    "preversion": "yarn test"
   },
   "keywords": [
     "prebuilt",
     "binaries",
     "distribution",
-    "prebuild"
+    "npm",
+    "github releases"
   ],
   "bugs": {
     "url": "https://github.com/kanekotic/any-prebuilt/issues"
   },
   "homepage": "https://github.com/kanekotic/any-prebuilt#readme",
   "dependencies": {
-    "bluebird": "3.5.1",
     "decompress-zip": "0.3.1",
-    "fs-extra": "6.0.1",
+    "fs-extra": "7.0.0",
     "gunzip-maybe": "1.4.1",
-    "lodash": "4.17.10",
-    "needle": "2.2.1",
     "progress": "2.0.0",
     "request": "2.87.0",
     "request-promise-native": "1.0.5",
@@ -48,7 +45,7 @@
   "devDependencies": {
     "coveralls": "3.0.2",
     "faker": "4.1.0",
-    "jest": "23.3.0"
+    "jest": "23.4.2"
   },
   "jest": {
     "testMatch": [
