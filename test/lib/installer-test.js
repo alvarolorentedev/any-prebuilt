@@ -1,6 +1,11 @@
 jest.mock('../../lib/helpers/data-mapper', () => ({
-    map: jest.fn(), 
-    validate: jest.fn()
+    manifest : { 
+        map: jest.fn(), 
+        validate: jest.fn() 
+    }, 
+    releases : { 
+        map: jest.fn()
+    }
 }))
 jest.mock('../../lib/retriever', () => ({
     getReleaseInfo: jest.fn()
@@ -13,14 +18,17 @@ const installer = require('../../lib/installer'),
 describe('index', () => {
     test('exports install', async () => {
         let manifest = { something: faker.random.uuid() },
-            mappedManifest = { something: faker.random.uuid() }
+            mappedManifest = { something: faker.random.uuid() },
+            mappedResponse = { something: faker.random.uuid() }
 
-        platform.map.mockReturnValue(mappedManifest)
+        platform.manifest.map.mockReturnValue(mappedManifest)
+        retriever.getReleaseInfo.mockReturnValue(Promise.resolve(mappedResponse))
         
-        installer(manifest)
+        await installer(manifest)
         
-        expect(platform.map).toBeCalledWith(manifest)
-        expect(platform.validate).toBeCalledWith(mappedManifest)
+        expect(platform.manifest.map).toBeCalledWith(manifest)
+        expect(platform.manifest.validate).toBeCalledWith(mappedManifest)
         expect(retriever.getReleaseInfo).toBeCalledWith(mappedManifest)
+        expect(platform.releases.map).toBeCalledWith(mappedResponse, mappedManifest)
     })
 })
