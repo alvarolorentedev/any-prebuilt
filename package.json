@@ -13,7 +13,7 @@
     "test": "jest",
     "test:dev": "jest --watchAll test/lib",
     "test:int": "jest test/integration",
-    "test:cov": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test:cov": "jest --coverage && codecov",
     "push": "yarn test && git push",
     "deploy:major": "yarn version --major",
     "deploy:minor": "yarn version --minor",
