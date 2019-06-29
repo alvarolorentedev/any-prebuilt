@@ -34,7 +34,7 @@
   "homepage": "https://github.com/kanekotic/any-prebuilt#readme",
   "dependencies": {
     "decompress-zip": "0.3.1",
-    "fs-extra": "8.0.1",
+    "fs-extra": "8.1.0",
     "gunzip-maybe": "1.4.1",
     "progress": "2.0.3",
     "request": "2.88.0",
