@@ -38,7 +38,7 @@
     "gunzip-maybe": "1.4.1",
     "progress": "2.0.3",
     "request": "2.88.0",
-    "request-promise-native": "1.0.7",
+    "request-promise-native": "1.0.8",
     "tar-fs": "2.0.0",
     "temp": "0.9.1"
   },
