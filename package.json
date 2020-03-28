@@ -39,13 +39,13 @@
     "progress": "2.0.3",
     "request": "2.88.2",
     "request-promise-native": "1.0.8",
-    "tar-fs": "2.0.0",
+    "tar-fs": "2.0.1",
     "temp": "0.9.1"
   },
   "devDependencies": {
     "codecov": "3.6.5",
     "faker": "4.1.0",
-    "jest": "25.1.0"
+    "jest": "25.2.3"
   },
   "jest": {
     "testMatch": [
