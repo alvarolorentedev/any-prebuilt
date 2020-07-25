@@ -38,12 +38,12 @@
     "gunzip-maybe": "1.4.2",
     "progress": "2.0.3",
     "request": "2.88.2",
-    "request-promise-native": "1.0.8",
+    "request-promise-native": "1.0.9",
     "tar-fs": "2.1.0",
     "temp": "0.9.1"
   },
   "devDependencies": {
-    "codecov": "3.7.1",
+    "codecov": "3.7.2",
     "faker": "4.1.0",
     "jest": "26.1.0"
   },
