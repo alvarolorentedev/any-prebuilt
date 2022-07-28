@@ -3,7 +3,7 @@ jest.mock('progress', () => jest.fn())
 const tracker = require('../../../lib/helpers/progress-tracker'),
     progress = require('progress'),
     EventEmitter = require('events'),
-    faker = require('faker')
+    { faker } = require('@faker-js/faker')
 
 class TestEmitter extends EventEmitter {}
     
@@ -22,8 +22,8 @@ describe('progress tracker', () => {
 
     test('should create new tracking if response event', async () => {
         let request = new TestEmitter(),
-            length = faker.random.number(200),
-            length2 = faker.random.number(200)
+            length = faker.datatype.number(200),
+            length2 = faker.datatype.number(200)
         
         tracker(request)
 
@@ -54,7 +54,7 @@ describe('progress tracker', () => {
 
     test('retrieve track progress', async () => {
         let request = new TestEmitter(),
-            length = faker.random.number(200)
+            length = faker.datatype.number(200)
         
         tracker(request)
 

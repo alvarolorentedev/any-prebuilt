@@ -13,12 +13,12 @@ const unpack = require('../../../lib/unpack/adapter-tgz'),
     gunzip = require('gunzip-maybe'),
     tar = require('tar-fs'),
     transform = require('stream').Transform,
-    faker = require('faker')
+    { faker } = require('@faker-js/faker')
 
 describe('unpack binary tgz', () => {
 
     test('unpack binary windows', async () => {
-        let destination = faker.random.uuid(),
+        let destination = faker.datatype.uuid(),
         stream = new transform({ objectMode: true })
 
         stream.push(null)
@@ -41,7 +41,7 @@ describe('unpack binary tgz', () => {
     })
 
     test('unpack binary other', async () => {
-        let destination = faker.random.uuid(),
+        let destination = faker.datatype.uuid(),
         stream = new transform({ objectMode: true })
 
         stream.push(null)

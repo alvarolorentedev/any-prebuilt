@@ -20,7 +20,7 @@ jest.mock('../../lib/helpers/logger', () => ({
 const installer = require('../../lib/installer'),
     platform = require('../../lib/helpers/data-mapper'),
     retriever = require('../../lib/retriever'),
-    faker = require('faker'),
+    { faker } = require('@faker-js/faker'),
     logger = require('../../lib/helpers/logger'),
     download = require('../../lib/download')
 
@@ -30,20 +30,20 @@ describe('index', () => {
     })
     test('exports install', async () => {
         let manifest = { 
-                version: faker.random.uuid(),  
-                platform: faker.random.uuid(),  
-                arch: faker.random.uuid(),  
-                targetDir: faker.random.uuid(),  
+                version: faker.datatype.uuid(),  
+                platform: faker.datatype.uuid(),  
+                arch: faker.datatype.uuid(),  
+                targetDir: faker.datatype.uuid(),  
             },
             mappedManifest = { 
-                runtime : { something: faker.random.uuid() },
-                dir: faker.random.uuid(),
-                token: faker.random.uuid()
+                runtime : { something: faker.datatype.uuid() },
+                dir: faker.datatype.uuid(),
+                token: faker.datatype.uuid()
              },
-            mappedResponse = { something: faker.random.uuid() }
+            mappedResponse = { something: faker.datatype.uuid() }
             mappedAsset = { 
-                name: faker.random.uuid(),
-                url: faker.random.uuid() 
+                name: faker.datatype.uuid(),
+                url: faker.datatype.uuid() 
             },
             expectedMessageManifest = `Fetching prebuilt:\n version:${manifest.version} \n\nPlatform:${manifest.platform}\nArch:${manifest.arch},\nTarget dir:${manifest.targetDir}`,
             expectedMessageMapAssets = `${mappedAsset.name} matched the environment`
@@ -69,7 +69,7 @@ describe('index', () => {
     })
 
     test('exports fails if no asset match', async () => {
-        let manifest = { something: faker.random.uuid() }
+        let manifest = { something: faker.datatype.uuid() }
 
         platform.releases.map.mockReturnValue(undefined)
         try {

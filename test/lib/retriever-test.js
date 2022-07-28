@@ -1,6 +1,6 @@
 jest.mock('request-promise-native', () => ({ get: jest.fn() }))
 const retriever = require('../../lib/retriever'),
-    faker = require('faker')
+    { faker } = require('@faker-js/faker')
     request = require('request-promise-native')
 
 describe('retriever package', () => {
@@ -47,7 +47,7 @@ describe('retriever package', () => {
 
     test('retrieve returns result from request', async () => {
         let url = faker.internet.url()
-        let expectResult = {on: () =>{}, a : faker.random.uuid()}
+        let expectResult = {on: () =>{}, a : faker.datatype.uuid()}
         request.get.mockReturnValue(expectResult)
 
         let result = await retriever.getPackage(url)
@@ -64,11 +64,11 @@ describe('retriever package info', () => {
         manifest = {
             platform: 'all',
             arch: 'all',
-            user: faker.random.uuid(),
-            repo: faker.random.uuid(),
-            token: faker.random.uuid(),
-            version: faker.random.uuid(),
-            targetDir: faker.random.uuid()
+            user: faker.datatype.uuid(),
+            repo: faker.datatype.uuid(),
+            token: faker.datatype.uuid(),
+            version: faker.datatype.uuid(),
+            targetDir: faker.datatype.uuid()
         } 
     })
 

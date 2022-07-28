@@ -14,7 +14,7 @@ jest.mock('fs-extra', () => ({
 const fileSystem = require('../../../lib/helpers/file-system'),
     path = require('path'),
     fs = require('fs-extra'),
-    faker = require('faker')
+    { faker } = require('@faker-js/faker')
 
 describe('file-system is windows function ', () => {
     const OLD_PLAT = process.platform
@@ -48,7 +48,7 @@ describe('file-system file mapper Tgz', () => {
       });
 
     test('should be true for platform windows', async () => {
-        let header = {name : faker.random.uuid()}
+        let header = {name : faker.datatype.uuid()}
         expect(fileSystem.fileMapperTgz(header)).toEqual(header)
         expect(fileSystem._files).toEqual([{path: `pepe/${header.name}`}])
     });
@@ -61,8 +61,8 @@ describe('file-system file mapper Zip', () => {
 
     test('should be true for platform windows', async () => {
         let entry = {
-            path : `pepe/${faker.random.uuid()}`,
-            mode : `${faker.random.uuid()}`
+            path : `pepe/${faker.datatype.uuid()}`,
+            mode : `${faker.datatype.uuid()}`
         }
         expect(fileSystem.fileMapperZip(entry)).toEqual(true)
         expect(fileSystem._files).toEqual([{path: entry.path,
@@ -80,10 +80,10 @@ describe('file-system strip root folder', () => {
 
     test('should strip root folder', async () => {
         let params = {
-                destination : `pepe/${faker.random.uuid()}`
+                destination : `pepe/${faker.datatype.uuid()}`
             },
-            readdirResult = [faker.random.uuid()],
-            joinResult = faker.random.uuid(),
+            readdirResult = [faker.datatype.uuid()],
+            joinResult = faker.datatype.uuid(),
             statSyncResult = {
                 isDirectory: () => true
             }
@@ -103,10 +103,10 @@ describe('file-system strip root folder', () => {
     
     test('reject if copy fails', async () => {
         let params = {
-                destination : `pepe/${faker.random.uuid()}`
+                destination : `pepe/${faker.datatype.uuid()}`
             },
-            readdirResult = [faker.random.uuid()],
-            joinResult = faker.random.uuid(),
+            readdirResult = [faker.datatype.uuid()],
+            joinResult = faker.datatype.uuid(),
             statSyncResult = {
                 isDirectory: () => true
             }
@@ -127,10 +127,10 @@ describe('file-system strip root folder', () => {
     
     test('should not strip root folder of not subfolder', async () => {
         let params = {
-                destination : `pepe/${faker.random.uuid()}`
+                destination : `pepe/${faker.datatype.uuid()}`
             },
             readdirResult = [],
-            joinResult = faker.random.uuid()
+            joinResult = faker.datatype.uuid()
 
         fs.readdirSync.mockReturnValue(readdirResult)
         path.join.mockReturnValue(joinResult)
@@ -146,10 +146,10 @@ describe('file-system strip root folder', () => {
     
     test('should not strip root folder if is not directory', async () => {
         let params = {
-                destination : `pepe/${faker.random.uuid()}`
+                destination : `pepe/${faker.datatype.uuid()}`
             },
-            readdirResult = [faker.random.uuid()],
-            joinResult = faker.random.uuid(),
+            readdirResult = [faker.datatype.uuid()],
+            joinResult = faker.datatype.uuid(),
             statSyncResult = {
                 isDirectory: () => false
             }

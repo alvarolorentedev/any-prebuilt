@@ -1,5 +1,5 @@
 const platform = require('../../../lib/helpers/data-mapper'),
-    faker = require('faker')
+    { faker } = require('@faker-js/faker')
 
 describe('map should', () => {
     let manifest
@@ -19,11 +19,11 @@ describe('map should', () => {
         manifest = {
             platform: 'all',
             arch: 'all',
-            user: faker.random.uuid(),
-            repo: faker.random.uuid(),
-            token: faker.random.uuid(),
-            version: faker.random.uuid(),
-            targetDir: faker.random.uuid()
+            user: faker.datatype.uuid(),
+            repo: faker.datatype.uuid(),
+            token: faker.datatype.uuid(),
+            version: faker.datatype.uuid(),
+            targetDir: faker.datatype.uuid()
         } 
         platform._.getInfo = jest.fn((() => 'linux:x64'))
       });
@@ -81,7 +81,7 @@ describe('map should', () => {
     })
 
     test('user as environment variable PREBUILT_USER', async () => {
-        process.env.PREBUILT_USER = faker.random.uuid()
+        process.env.PREBUILT_USER = faker.datatype.uuid()
         expect(platform.manifest.map(manifest).user).toEqual(process.env.PREBUILT_USER)
     });
 
@@ -94,7 +94,7 @@ describe('map should', () => {
     });
 
     test('repo as environment variable PREBUILT_REPO', async () => {
-        process.env.PREBUILT_REPO = faker.random.uuid()
+        process.env.PREBUILT_REPO = faker.datatype.uuid()
         expect(platform.manifest.map(manifest).repo).toEqual(process.env.PREBUILT_REPO)
     });
 
@@ -103,7 +103,7 @@ describe('map should', () => {
     });
 
     test('token as environment variable PREBUILT_TOKEN', async () => {
-        process.env.PREBUILT_TOKEN = faker.random.uuid()
+        process.env.PREBUILT_TOKEN = faker.datatype.uuid()
         expect(platform.manifest.map(manifest).token).toEqual(process.env.PREBUILT_TOKEN)
     });
 
@@ -117,7 +117,7 @@ describe('map should', () => {
     });
 
     test('version as environment variable PREBUILT_VERSION', async () => {
-        process.env.PREBUILT_VERSION = faker.random.uuid()
+        process.env.PREBUILT_VERSION = faker.datatype.uuid()
         expect(platform.manifest.map(manifest).version).toEqual(process.env.PREBUILT_VERSION)
     });
 
@@ -131,7 +131,7 @@ describe('map should', () => {
     });
 
     test('targetDir as environment variable PREBUILT_TARGET_DIR', async () => {
-        process.env.PREBUILT_TARGET_DIR = faker.random.uuid()
+        process.env.PREBUILT_TARGET_DIR = faker.datatype.uuid()
         expect(platform.manifest.map(manifest).dir).toEqual(process.env.PREBUILT_TARGET_DIR)
     });
 })
@@ -189,11 +189,11 @@ describe('validate should', () => {
                 platform: 'all',
                 arch: 'all',
             },
-            user: faker.random.uuid(),
-            repo: faker.random.uuid(),
-            token: faker.random.uuid(),
-            version: faker.random.uuid(),
-            targetDir: faker.random.uuid()
+            user: faker.datatype.uuid(),
+            repo: faker.datatype.uuid(),
+            token: faker.datatype.uuid(),
+            version: faker.datatype.uuid(),
+            targetDir: faker.datatype.uuid()
         } 
       });
 
@@ -254,22 +254,22 @@ describe('map assets', () => {
 
     test(`extract architecture and platform from assets`, async () => {
         let url = faker.internet.url(),
-            expectedArch = faker.random.uuid(),
-            expectedPlatform = faker.random.uuid(),
+            expectedArch = faker.datatype.uuid(),
+            expectedPlatform = faker.datatype.uuid(),
             runtime = {
                     arch: expectedArch, 
                     platform: expectedPlatform
             },
-            filename = `${faker.random.uuid()}_${expectedPlatform}_${expectedArch}.zip`,
+            filename = `${faker.datatype.uuid()}_${expectedPlatform}_${expectedArch}.zip`,
             requestResult = {
                 assets:[
                     {
                         name: `${url}/${filename}`,
-                        something: faker.random.uuid()
+                        something: faker.datatype.uuid()
                     },
                     {
                         name: `${url}/${filename}`,
-                        something: faker.random.uuid()
+                        something: faker.datatype.uuid()
                     }
                 ]
             }

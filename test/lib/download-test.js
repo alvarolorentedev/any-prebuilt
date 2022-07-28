@@ -10,16 +10,16 @@ const download = require('../../lib/download'),
     unpacker = require('../../lib/unpack/unpacker'),
     tracker = require('../../lib/helpers/progress-tracker'),
     path = require('path'),
-    faker = require('faker')
+    { faker } = require('@faker-js/faker')
 
 describe('download', () => {
     test('should retrieve file and unpack', async () => {
-        let url = faker.random.uuid(), 
-            token = faker.random.uuid(),
-            name = faker.random.uuid(),
-            destination = faker.random.uuid(),
-            extname = faker.random.uuid(),
-            retrieverResult = faker.random.uuid()
+        let url = faker.datatype.uuid(), 
+            token = faker.datatype.uuid(),
+            name = faker.datatype.uuid(),
+            destination = faker.datatype.uuid(),
+            extname = faker.datatype.uuid(),
+            retrieverResult = faker.datatype.uuid()
 
         retriever.getPackage.mockReturnValue(retrieverResult)
         path.extname.mockReturnValue(extname)

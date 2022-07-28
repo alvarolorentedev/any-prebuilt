@@ -32,7 +32,7 @@ const unpack = require('../../../lib/unpack/adapter-zip'),
     decompress = require('decompress-zip'),
     fs = require('fs-extra'),
     path = require('path'),
-    faker = require('faker')
+    { faker } = require('@faker-js/faker')
 
 describe('unpack binary zip', () => {
     let extractMock = jest.fn()
@@ -47,7 +47,7 @@ describe('unpack binary zip', () => {
     })
 
     test('unpack binary windows on success', async () => {
-        let destination = faker.random.uuid(),
+        let destination = faker.datatype.uuid(),
         stream = new transform({ objectMode: true })
 
         temp.createWriteStream.mockReturnValue(stream)
@@ -72,9 +72,9 @@ describe('unpack binary zip', () => {
     })
 
     test('unpack binary windows on error', async () => {
-        let destination = faker.random.uuid(),
+        let destination = faker.datatype.uuid(),
             stream = new transform({ objectMode: true }),
-            expectedError = faker.random.uuid()
+            expectedError = faker.datatype.uuid()
 
         temp.createWriteStream.mockReturnValue(stream)
         
