@@ -39,7 +39,7 @@
     "progress": "2.0.3",
     "request": "2.88.2",
     "request-promise-native": "1.0.9",
-    "tar-fs": "3.0.3",
+    "tar-fs": "3.0.4",
     "temp": "0.9.4"
   },
   "devDependencies": {
